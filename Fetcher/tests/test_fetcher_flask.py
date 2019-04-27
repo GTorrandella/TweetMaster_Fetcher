@@ -28,7 +28,7 @@ class test_fetcher_flask(test_fetcher_base):
         self.ctx = fetcher_flask.app.app_context()
         self.ctx.push()
         
-        Fetcher().twitter.cursor = MagicMock(side_effect = self.return_values)
+        Fetcher()._twitter.cursor = MagicMock(side_effect = self.return_values)
 
     def tearDown(self):
         self.ctx.pop()

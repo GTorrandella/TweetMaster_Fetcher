@@ -8,7 +8,7 @@ from flask.globals import request
 from flask.wrappers import Response
 
 import Fetcher.fetcher as fetcher
-
+from Campaign.Campaign import Campaign
 
 def fixDate(stringDate):
     dateList = []

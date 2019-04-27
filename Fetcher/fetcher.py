@@ -6,6 +6,8 @@ Created on Nov 20, 2018
 from os import path
 
 from twython import Twython
+from Tweet.Tweet import Tweet
+import redis
 
 parentDir = path.dirname(path.abspath(__file__))
 tokenPath = path.join(parentDir, 'tokens')
@@ -16,15 +18,22 @@ ACCESS_TOKEN = f.readline().rstrip()
 f.close
 
 class Fetcher():
-    twitter = Twython(APP_KEY, APP_SECRET, oauth_version=2)
-    twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
+    _twitter = Twython(APP_KEY, APP_SECRET, oauth_version=2)
+    _twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
+    
+    def __init__(self, context = "estandar"):
+        if context == "test":
+            self._db = redis.from_url("redis://localhost:6379", db = 1)
+        else:
+            self._db = redis.from_url("redis://localhost:6379", db = 0)
+    
     
     def fetchByHashtag(self, hashtag):
-        rawTweet = self.twitter.cursor(self.twitter.search, q=hashtag, result_type="recent")
+        rawTweet = self._twitter.cursor(self._twitter.search, q=hashtag, result_type="recent")
         return rawTweet
     
     def fetchByMention(self, mention):
-        rawTweet = self.twitter.cursor(self.twitter.search, q=mention, result_type="recent")
+        rawTweet = self._twitter.cursor(self._twitter.search, q=mention, result_type="recent")
         return rawTweet
     
     def makeTweet(self, rawTweets):
