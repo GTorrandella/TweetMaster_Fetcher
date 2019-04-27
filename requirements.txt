@@ -1,5 +1,10 @@
 SQLAlchemy
 PyMySQL
+flask
+flask-SQLAlchemy
+flask-restful
+flask-marshmallow
+marshmallow-sqlalchemy
 twython
 pytest
 redis

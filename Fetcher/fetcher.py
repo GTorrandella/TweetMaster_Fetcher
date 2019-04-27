@@ -7,9 +7,6 @@ from os import path
 
 from twython import Twython
 
-from Tweet.Tweet import Tweet
-
-
 parentDir = path.dirname(path.abspath(__file__))
 tokenPath = path.join(parentDir, 'tokens')
 f = open(tokenPath)
