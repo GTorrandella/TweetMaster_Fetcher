@@ -100,5 +100,12 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# Eclipse projects
+.project
+.pydevproject
+
+# ERROR
+/TweetMaster_Fetcher
+
 # mypy
 .mypy_cache/
