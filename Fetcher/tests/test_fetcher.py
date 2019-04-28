@@ -37,22 +37,22 @@ class test_fetcher(test_fetcher_base):
         
         self.test.fetchByMention.assert_any_call("@mars")
         self.assertEqual(result, self.responseMention)
+        
+    def test_saveTweets(self):
+        self.test.saveTweets(self.campaign.idC, self.response_fetchTweets['Tweets'])
+        
+        for tweet in self.test._db.smembers(self.campaign.idC+":tweets"):
+            self.assertTrue(tweet.decode() in self.tweetsId)
     
     def test_fetchCampagn(self):
-        result = self.test.fetchTweets(self.campaign)
+        self.test.fetchTweets(self.campaign)
         
         self.test.fetchByHashtag.assert_called_once_with("#mars")
         self.test.fetchByMention.assert_called_once_with("@mars")
         
-        for tweet in result['Tweets']:
-            self.assertTrue(tweet in self.response_fetchTweets['Tweets'])
+        for tweet in self.test._db.smembers(self.campaign.idC+":tweets"):
+            self.assertTrue(tweet.decode() in self.tweetsId)
         
-    def test_saveTweets(self):
-        self.test.saveTweets("test", self.response_fetchTweets['Tweets'])
-        
-        for tweet in self.test._db.smembers("Tweetstest"):
-            self.assertTrue(tweet in self.response_fetchTweets['Tweets'])
-
             
     
 if __name__ == "__main__":

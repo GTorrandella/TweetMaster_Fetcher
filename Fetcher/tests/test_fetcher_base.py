@@ -13,6 +13,8 @@ class test_fetcher_base(unittest.TestCase):
     
     def setUp(self):
         self.lastId = "967824267948770000"
+        
+        self.tweetsId = ["967824267948773377", "967824267948773378", "123824267948773377", "123824267948773378"]
 
         self.campaign = Campaign("idC", "emailDueño", ["#mars"], ["@mars"], "06 12 2018 23:20:00", "07 12 2018 00:00:30")
 
@@ -51,7 +53,7 @@ class test_fetcher_base(unittest.TestCase):
                 "statuses": [
                         {
                                 "created_at": "Sun Feb 25 18:11:01 +0000 2018",
-                                "id_str": "967824267948773377",
+                                "id_str": "123824267948773377",
                                 "text":"",
                                 "entities": {
                                         "hashtags": [],
@@ -64,7 +66,7 @@ class test_fetcher_base(unittest.TestCase):
                         },
                         {
                                 "created_at": "Sun Feb 25 18:11:01 +0000 2018",
-                                "id_str": "967824267948773378",
+                                "id_str": "123824267948773378",
                                 "text":"",
                                 "entities": {
                                         "hashtags": [],

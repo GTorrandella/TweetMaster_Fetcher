@@ -40,7 +40,7 @@ class Fetcher():
         tweets = []
         for tweet in rawTweets:
             tweets.append(Tweet(tweet, raw=True))
-        return {'Tweets':tweets}
+        return tweets
             
     def fetchTweets(self, campaign):
         rawTweets = []
@@ -53,8 +53,7 @@ class Fetcher():
         
         tweets = self.makeTweet(rawTweets)
         
-        self.saveTweets(campaign.idC, tweets['Tweets'])
-        return tweets
+        self.saveTweets(campaign.idC, tweets)
     
     def saveTweets(self, idCampain, tweets):
         for tweet in tweets:
