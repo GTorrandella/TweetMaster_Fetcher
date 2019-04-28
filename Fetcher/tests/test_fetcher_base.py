@@ -21,9 +21,9 @@ class test_fetcher_base(unittest.TestCase):
                         {
                                 "created_at": "Sun Feb 25 18:11:01 +0000 2018",
                                 "id_str": "967824267948773377",
+                                "text":"",
                                 "entities": {
                                         "hashtags": ["mars"],
-                                        "symbols": [],
                                         "user_mentions": [],
                                         },
                                 "user": {
@@ -34,9 +34,9 @@ class test_fetcher_base(unittest.TestCase):
                         {
                                 "created_at": "Sun Feb 25 18:11:01 +0000 2018",
                                 "id_str": "967824267948773378",
+                                "text":"",
                                 "entities": {
                                         "hashtags": ["mars"],
-                                        "symbols": [],
                                         "user_mentions": [],
                                         },
                                 "user": {
@@ -52,6 +52,7 @@ class test_fetcher_base(unittest.TestCase):
                         {
                                 "created_at": "Sun Feb 25 18:11:01 +0000 2018",
                                 "id_str": "967824267948773377",
+                                "text":"",
                                 "entities": {
                                         "hashtags": [],
                                         "user_mentions": ["mars"],
@@ -64,6 +65,7 @@ class test_fetcher_base(unittest.TestCase):
                         {
                                 "created_at": "Sun Feb 25 18:11:01 +0000 2018",
                                 "id_str": "967824267948773378",
+                                "text":"",
                                 "entities": {
                                         "hashtags": [],
                                         "user_mentions": ["mars"],
@@ -81,7 +83,11 @@ class test_fetcher_base(unittest.TestCase):
         
         self.param_makeTweets = self.responseHastag + self.responseMention
         
-        self.response_fetchTweets = {'Tweets':[Tweet(self.responseHastag[0]).to_json(),Tweet(self.responseHastag[1]).to_json(),Tweet(self.responseMention[0]).to_json(),Tweet(self.responseMention[1]).to_json()]}
+        tweets = []
+        for tweet_data in self.responseHastag + self.responseMention:
+            tweets.append(Tweet(tweet_data, raw=True))
+        
+        self.response_fetchTweets = {'Tweets':tweets}
         
         self.resquest_get_200_content = self.campaign.to_json()
     

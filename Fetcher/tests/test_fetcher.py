@@ -14,7 +14,7 @@ class test_fetcher(test_fetcher_base):
 
     def setUp(self):
         test_fetcher_base.setUp(self)
-        self.test = fetch.Fetcher()
+        self.test = fetch.Fetcher(context="test")
         
         self.test.fetchByHashtag = MagicMock(return_value = self.responseHastag)
         
@@ -22,7 +22,7 @@ class test_fetcher(test_fetcher_base):
 
 
     def tearDown(self):
-        pass
+        self.test._db.flushdb()
         
     
     def test_fetchByHashtag(self):
@@ -44,7 +44,16 @@ class test_fetcher(test_fetcher_base):
         self.test.fetchByHashtag.assert_called_once_with("#mars")
         self.test.fetchByMention.assert_called_once_with("@mars")
         
-        self.assertEqual(result, self.response_fetchTweets)
+        for tweet in result['Tweets']:
+            self.assertTrue(tweet in self.response_fetchTweets['Tweets'])
+        
+    def test_saveTweets(self):
+        self.test.saveTweets("test", self.response_fetchTweets['Tweets'])
+        
+        for tweet in self.test._db.smembers("Tweetstest"):
+            self.assertTrue(tweet in self.response_fetchTweets['Tweets'])
+
+            
     
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
